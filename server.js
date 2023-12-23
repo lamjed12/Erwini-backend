@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 });
 app.use(cors(corsOptions));
 
-dotenv.config({ path: ".env" });
+//dotenv.config({ path: ".env" });
 const port = process.env.port || 8080;
 
 //log requests

@@ -5,7 +5,7 @@ const admin_route = express.Router();
 const user = require("../controller/user");
 const whiteTest = require("../controller/agenda");
 const agriculteur =  require("../controller/agriculteur");
-const historique =  require("../controller/historique");
+const historiqueForAdmin =  require("../controller/historiqueForAdmin");
 const notification =  require("../controller/notification");
 
 const auth =  require("../controller/authentifcation");
@@ -31,11 +31,11 @@ const auth =  require("../controller/authentifcation");
 
 
  //API historique 
- admin_route.post('create/historique', historique.create);
- admin_route.get("/historique",historique.find);
- admin_route.get("/historique/:id",historique.findByid);
- admin_route.put("/historique/:id",historique.update);
- admin_route.delete("/historique/:id",historique.delete);
+ admin_route.post('/api/create/historiqueForAdmin', historiqueForAdmin.create);
+ admin_route.get("/api/historiqueForAdmin",historiqueForAdmin.find);
+// admin_route.get("/historique/:id",historique.findByid);
+//admin_route.put("/historique/:id",historique.update);
+// admin_route.delete("/historique/:id",historique.delete);
 
 
   //API notification 

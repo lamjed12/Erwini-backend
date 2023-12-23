@@ -162,3 +162,28 @@ exports.getStatusSIM = async (req, res) => {
     res.status(500).send('Internal server error');
   }
 };
+exports.authentifierAgriculteur = async (req, res) => {
+  try{
+    const { Phone, Password } = req.body;
+    // Find the agriculteur based on the provided Phone
+    Agriculteur.findOne({ Phone })
+      .then((agriculteur) => {
+        if (!agriculteur) {
+          return res.status(404).json({ message:"Agriculteur not found." });
+        }
+        // Check if the Password matches
+        if (agriculteur.Password !== Password) {
+          return res.status(401).json({ message: "Invalid Password" });
+        }
+        // Authentication successful, return the agriculteur data or a token
+        return res.status(200).json({ agriculteur });
+      })
+      .catch((error) => {
+        return res.status(500).json({ message: "Internal Server Error."});
+      });
+
+
+  }catch{
+
+  }
+}

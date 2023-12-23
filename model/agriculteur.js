@@ -5,8 +5,8 @@ var AgriculteurSchema =  mongoose.Schema({
 
     Phone:{
         type:String,
-        //required:true,
-        // unique:true
+        required:true,
+         unique:true
     },
     Pus:{
         type:String,

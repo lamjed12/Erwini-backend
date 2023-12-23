@@ -12,6 +12,9 @@ const zone =  require("../controller/zone");
 const mesure =  require("../controller/mesure");
 const notificationUser = require('../controller/notificationUser');
 const map = require('../controller/map');
+const agriculteur =  require('../controller/agriculteur');
+
+
   //API user 
   user_route.post(' create/user', user.create);
   user_route.get(" users",user.find);
@@ -31,12 +34,15 @@ const map = require('../controller/map');
  user_route.post('/api/create/puit',puit.create);
  user_route.get("/api/puits",puit.find);
  user_route.get("/api/puit/:id",puit.findByid);
+ user_route.get("/api/puit/ByUser/:id",puit.findPuitByUser);
  user_route.put("/api/puit/:id",puit.update);
+ user_route.get("/api/puit/byAgenda/:id",puit.changeStatusWithAgenda);
  user_route.delete("/api/puit/:id",puit.delete);
 
   //API vanne 
   user_route.post('/api/create/vanne',vanne.create);
   user_route.get("/api/vannes",vanne.find);
+  user_route.get("/api/vanne/ByUser/:id",vanne.findVanneByUser);
   user_route.get("/api/vanne/:id",vanne.findByid);
   user_route.put("/api/vanne/:id",vanne.update);
   user_route.delete("/api/vanne/:id",vanne.delete);
@@ -48,12 +54,17 @@ const map = require('../controller/map');
     user_route.put("/api/zone/:id",zone.update);
     user_route.delete("/api/zone/:id",zone.delete);
 
+
+    //Authetification
+ user_route.post('/authentifierAgriculteur',agriculteur.authentifierAgriculteur);
   
  //API pompe 
  user_route.post('/api/create/pompe', pompe.create);
  user_route.get("/api/pompes",pompe.find);
  user_route.get("/api/pompe/:id",pompe.findByid);
+ user_route.get("/api/pompe/byUser/:id",pompe.findPompeByUser);
  user_route.put("/api/pompe/:id",pompe.update);
+ user_route.get("/api/pompe/byAgenda/:id",pompe.changeStatusWithAgenda);
  user_route.delete("/api/pompe/:id",pompe.delete);
 
   //API mesure 

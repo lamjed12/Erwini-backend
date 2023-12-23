@@ -10,7 +10,8 @@ var Vanne = require("../model/vanne");
       status:req.body.status,
       Batterie:req.body.Batterie,
       zone :req.body.Zone,
-      mesure : req.body.mesure
+      mesure : req.body.mesure,
+      user : req.body.user
     })
   
     //save vanne in the database
@@ -83,3 +84,31 @@ exports.delete = (req, res) => {
       });
   };
 
+exports.findVanneByUser = async  (req, res) => {
+    try {
+      if (!req.body) {
+        res.status(400).send({ message: "Data to update can not be empty" });
+        return;
+      }
+      const user = req.params.id;
+      console.log("user", user);
+      Vanne.find({user: user })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Cannot Update patient with ${user}. Maybe patient not found !" });
+      } else {
+        console.log("data", data);
+        console.log(req.body);
+         res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error Update user information" });
+    });
+    }
+    catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+
+  };

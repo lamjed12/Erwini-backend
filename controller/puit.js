@@ -3,6 +3,7 @@ var Puit = require("../model/puit");
 //create and save new agriculteur
 
  module.exports.create =  async (req, res)=>{
+  console.log(req)
   try{
     const puit = await Puit.create({
  
@@ -11,7 +12,8 @@ var Puit = require("../model/puit");
       Connection: req.body.Connection,
       Agenda: req.body.Agenda,
       Security: req.body.Security,
-      Alert: req.body.Alert
+      Alert: req.body.Alert,
+      user: req.body.user,
     
     })
   
@@ -85,4 +87,58 @@ exports.delete = (req, res) => {
       });
   };
 
- 
+  exports.changeStatusWithAgenda = async  (req, res) => {
+    try {
+      if (!req.body) {
+        res.status(400).send({ message: "Data to update can not be empty" });
+        return;
+      }
+      const agend = req.params.id;
+      console.log("agend", agend);
+    Puit.find({Agenda: { $in: agend }})
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Cannot Update patient with ${agend}. Maybe patient not found !" });
+      } else {
+        console.log("data", data);
+        console.log(req.body);
+         res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error Update pompe information" });
+    });
+    }
+    catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+
+  };
+
+  exports.findPuitByUser = async  (req, res) => {
+    try {
+      if (!req.body) {
+        res.status(400).send({ message: "Data to update can not be empty" });
+        return;
+      }
+      const user = req.params.id;
+      console.log("user", user);
+      Puit.find({user: user })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Not found patient with id" + id });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error Update user information" });
+    });
+    }
+    catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+
+  };

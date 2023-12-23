@@ -5,7 +5,7 @@ var Agenda = require("../model/agenda");
 //create and save new Agenda
 
 
-exports.create =  (req, res)=>{
+exports.create = async (req, res) => {
     console.log(req.body);
     //validate request
    
@@ -24,7 +24,8 @@ exports.create =  (req, res)=>{
     //save Agenda in the database
     
     try{
-        res.status(201).json(agenda.save())
+      const savedAgenda = await agenda.save();
+      res.status(201).json({ id: savedAgenda._id });
     }
     catch{
         res.status(400).json({ message: error.message || "Some error" });

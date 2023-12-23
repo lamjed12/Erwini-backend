@@ -4,7 +4,13 @@ const connectDB = async() =>{
     try{
         //mongodb connection string
         const con = await mongoose.connect(
-            process.env.mongo_url+process.env.database
+            "mongodb://localhost:27017/TrainingApp",
+            {
+
+                useNewUrlParser: "true",
+                useUnifiedTopology: "true"
+              
+              }
         );
         console.log("MongoDB connected : hello ")
     }catch(err){

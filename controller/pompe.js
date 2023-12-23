@@ -17,7 +17,8 @@
         // zone:req.body.zone,
         active:req.body.active,
         // zone: req.body.zone,
-    agendas: req.body.agendas
+        agendas: req.body.agendas,
+        user : req.body.user
     })
 
 
@@ -76,11 +77,8 @@
       });
   };
   
-  
 
-  
-  
-  exports.update = (req, res) => {
+  exports.update =async (req, res) => {
     if (!req.body) {
       res.status(400).send({ message: "Data to update can not be empty" });
       return;
@@ -95,7 +93,9 @@
           if (!data) {
             res.status(404).send({ message: "Cannot Update patient with ${id}. Maybe patient not found !" });
           } else {
-            res.send(data);
+            console.log("data", data);
+            console.log(req.body);
+             res.send(data);
           }
         })
         .catch((err) => {
@@ -130,3 +130,60 @@
     }
   };
   
+  exports.changeStatusWithAgenda = async  (req, res) => {
+    try {
+      if (!req.body) {
+        res.status(400).send({ message: "Data to update can not be empty" });
+        return;
+      }
+      const agend = req.params.id;
+      console.log("agend", agend);
+    Pompe.find({agendas: { $in: agend }})
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Cannot Update patient with ${agend}. Maybe patient not found !" });
+      } else {
+        console.log("data", data);
+        console.log(req.body);
+         res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error Update pompe information" });
+    });
+    }
+    catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+
+  };
+
+  exports.findPompeByUser = async  (req, res) => {
+    try {
+      if (!req.body) {
+        res.status(400).send({ message: "Data to update can not be empty" });
+        return;
+      }
+      const user = req.params.id;
+      console.log("user", user);
+      Pompe.find({user: user })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "Cannot Update patient with ${user}. Maybe patient not found !" });
+      } else {
+        console.log("data", data);
+        console.log(req.body);
+         res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error Update user information" });
+    });
+    }
+    catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+
+  };

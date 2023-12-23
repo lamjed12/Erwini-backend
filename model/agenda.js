@@ -16,7 +16,7 @@ var agenda_schema = new mongoose.Schema({
         type : String,
         // required: true
     },  
-    puit: {
+  /*  puit: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Puit'
     },
@@ -24,7 +24,7 @@ var agenda_schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pompe'
     }
-   
+   */
 })
 
 

@@ -20,7 +20,10 @@ const VanneSchema = new mongoose.Schema({
   mesures: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mesure'
-}]
+}],
+user:   {
+  type: String,
+},
 
 });
 

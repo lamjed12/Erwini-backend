@@ -12,9 +12,13 @@ var PuitSchema =  mongoose.Schema({
     Connection:{
         type:String
     },
-    Agenda:{
-        type:String
-    },
+    Agenda:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Agenda'
+    }],
+    user:   {
+        type: String,
+      },
     Security:String,
     Alert:String
 
